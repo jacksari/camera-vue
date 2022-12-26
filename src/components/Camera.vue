@@ -34,14 +34,14 @@ export default {
         let constraints = {
           video: {
             width: {
-              min: 300,
-              ideal: 300,
-              max: 300,
+              min: 700,
+              ideal: 700,
+              max: 700,
             },
             height: {
-              min: 300,
-              ideal: 300,
-              max: 300,
+              min: 700,
+              ideal: 700,
+              max: 700,
             },
             deviceId: idDeDispositivo
           },
