@@ -36,8 +36,8 @@ export default {
         document.querySelector("video"),
         0,
         0,
-        picture.width,
-        picture.height
+        200,
+        400
       );
     },
   },
