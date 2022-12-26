@@ -27,8 +27,8 @@ export default {
       let ratio = window.innerHeight < window.innerWidth ? 16 / 9 : 9 / 16;
 
       const picture = document.querySelector("canvas");
-      picture.width = 300;
-      picture.height =300;
+      picture.width = 400;
+      picture.height =400;
       const ctx = picture.getContext("2d");
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = "high";
@@ -36,8 +36,8 @@ export default {
         document.querySelector("video"),
         0,
         0,
-        300,
-        300
+        400,
+        400
       );
     },
   },
