@@ -1,5 +1,11 @@
 <template>
   <div class="camera">
+    <select v-model="selectedDevice">
+      <option disabled value="">Seleccione un elemento</option>
+      <option v-for="(item, index) in devicesArray" :key="index" :value="item.deviceId">{{ item.label }}</option>
+    </select>
+    <span>Seleccionado: {{ selectedDevice }}</span>
+   
     <video autoplay class="feed"></video>
     <button @click="$emit('takePicture')" class="snap">SNAP</button>
   </div>
@@ -10,13 +16,17 @@ export default {
   name: "Camera",
   components: {},
   data() {
-    return {};
+    return {
+      devicesArray: [],
+      selectedDevice: null
+    };
   },
-  mounted() {
-    this.init();
+  async mounted() {
+    await this.getDevices();
+    //this.init();
   },
   methods: {
-    init() {
+    init(idDeDispositivo) {
       if (
         "mediaDevices" in navigator &&
         "getUserMedia" in navigator.mediaDevices
@@ -33,6 +43,7 @@ export default {
               ideal: 720,
               max: 1080,
             },
+            deviceId: idDeDispositivo
           },
         };
         navigator.mediaDevices
@@ -41,6 +52,7 @@ export default {
             const videoPlayer = document.querySelector("video");
             videoPlayer.srcObject = stream;
             videoPlayer.play();
+            console.log("hola");
           })
           .catch((err) => {
             console.log(err);
@@ -50,7 +62,17 @@ export default {
         console.log(jr);
       }
     },
+    async getDevices() {
+      const resp = await navigator.mediaDevices.enumerateDevices();
+      this.devicesArray = resp.filter(it => it.kind == 'videoinput');
+    },
   },
+  watch: {
+    selectedDevice() {
+      console.log(this.selectedDevice)
+      this.init(this.selectedDevice);
+    }
+  }
 };
 </script>
 
